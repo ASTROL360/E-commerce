@@ -374,7 +374,10 @@ function bindEvents() {
   });
 
   el("auth-button").addEventListener("click", () => el("auth-dialog").showModal());
-  el("logout-button").addEventListener("click", clearSession);
+  el("logout-button").addEventListener("click", () => {
+    const shouldLogout = window.confirm("Are you sure you want to log out?");
+    if (shouldLogout) clearSession();
+  });
 
   el("toggle-auth-mode").addEventListener("click", () => {
     state.authMode = state.authMode === "login" ? "register" : "login";
