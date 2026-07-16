@@ -16,7 +16,9 @@ export function getProductIdFromCartItem(item) {
 }
 
 export function getItemPrice(item) {
-  return Number(item.lineTotal || item.total || item.price || item.unitPrice || item.product?.price || 0);
+  if (item.lineTotal || item.total) return Number(item.lineTotal || item.total);
+  const unitPrice = Number(item.price || item.unitPrice || item.product?.price || item.product?.basePrice || 0);
+  return unitPrice * Number(item.quantity || 1);
 }
 
 export function getProductPrice(product) {
