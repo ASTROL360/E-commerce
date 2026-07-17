@@ -1,0 +1,4 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/ASTROL360/E-commerce.git
+	branch = backend-main
