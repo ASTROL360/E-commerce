@@ -39,6 +39,13 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
+    public List<OrderResponse> getAllOrders() {
+        return orderRepository.findAllWithItems().stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public OrderResponse getOrder(String email, UUID orderId) {
         User user = getUser(email);
         Order order = orderRepository.findWithItemsById(orderId)

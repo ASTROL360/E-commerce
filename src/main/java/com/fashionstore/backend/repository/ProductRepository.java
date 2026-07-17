@@ -9,16 +9,16 @@ import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
-    @EntityGraph(attributePaths = "category")
+    @EntityGraph(attributePaths = {"category", "variants"})
     Page<Product> findByActiveTrue(Pageable pageable);
 
-    @EntityGraph(attributePaths = "category")
+    @EntityGraph(attributePaths = {"category", "variants"})
     Page<Product> findByCategoryIdAndActiveTrue(UUID categoryId, Pageable pageable);
 
     @EntityGraph(attributePaths = {"category", "variants"})
     Optional<Product> findWithCategoryAndVariantsById(UUID id);
 
-    @EntityGraph(attributePaths = "category")
+    @EntityGraph(attributePaths = {"category", "variants"})
     @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :q, '%')) AND p.active = true")
     Page<Product> search(@Param("q") String query, Pageable pageable);
 }

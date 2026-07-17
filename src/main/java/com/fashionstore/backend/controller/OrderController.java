@@ -26,6 +26,12 @@ public class OrderController {
         return orderService.getOrders(principal.getName());
     }
 
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<OrderResponse> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
     @GetMapping("/{id}")
     public OrderResponse getOrder(Principal principal, @PathVariable UUID id) {
         return orderService.getOrder(principal.getName(), id);
